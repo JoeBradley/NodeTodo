@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "noEmit": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "include": ["/Scripts"],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": true,
+  "typeAcquisition": {
+    "enable": true
+  }
+}

@@ -1,27 +1,63 @@
 /* Home */
 
-$.get('http://localhost:3000/tasks', function(data){
-console.log(data);
-var tasks = data.map((task) =>
-  <li key={task._id}><label>{task.name}</label><input type="checkbox" onClick={this.statusOnClick} /></li>
-);
+class Tasks extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: null
+        };
 
-statusOnClick() {
-    console.log(this);
-	
-	this.setState(prevState => ({
-      status: 'completed'
-    }));
-	$.ajax({url: 'http://localhost:3000/tasks/' + this._id, method: 'PUT', data: this});
-  }
+        this.load();
+    }
 
+    load() {
+        console.log('Load tasks');
 
-  $('input[type="checkbox"]').click())
+        var self = this;
+        $.get('/tasks', function (data) {
+            console.log(data);
 
-  
-ReactDOM.render(
-  <ul>{tasks}</ul>,
-  document.getElementById('root')
-);
-  
-});
+            self.setState(prevState => ({
+                tasks: data.map((task) => <TaskItem key={task._id} data={task} />)
+            }));
+        });
+    }
+
+    render() {
+        return (
+            <ul>{this.state.tasks}</ul>
+        );
+    }
+}
+
+class TaskItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        console.log("Task item: " + JSON.stringify(props));
+
+        this.state = props.data;
+
+        // This binding is necessary to make `this` work in the callback
+        this.toggleStatus = this.toggleStatus.bind(this);
+    }
+
+    toggleStatus() {
+        this.setState(prevState => ({
+            status: !prevState.status            
+        }));
+
+        $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state });        
+    }
+
+    render() {
+        return (
+            <li>
+                <label>{this.state.name}</label>
+                <input type="checkbox" onChange={this.toggleStatus} checked={this.state.status ? 'checked' : ''} />
+            </li>
+        );
+    }
+}
+
+ReactDOM.render(<Tasks/>, document.getElementById('root'));
