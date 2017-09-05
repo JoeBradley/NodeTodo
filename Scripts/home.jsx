@@ -45,9 +45,13 @@ class TaskItem extends React.Component {
     toggleStatus() {
         this.setState(prevState => ({
             status: !prevState.status            
-        }));
+        }), this.update);
 
-        $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state });        
+               
+    }
+
+    update() {
+        $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state }); 
     }
 
     render() {
