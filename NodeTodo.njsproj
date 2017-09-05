@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6bbc78e7-9412-4ff4-9eae-df046202f6e4}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>server.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -16,9 +16,15 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <SubType>Content</SubType>
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <Content Include="index.html" />
     <Content Include="package.json" />
-    <Compile Include="Scripts\home.js">
+    <Compile Include="Scripts\home.js" />
+    <Compile Include="Scripts\home.js.bak2">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server.js" />

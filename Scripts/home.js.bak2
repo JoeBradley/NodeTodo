@@ -1,4 +1,5 @@
 ﻿/* Home */
+
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -34,29 +35,20 @@ var Tasks = (function (_React$Component) {
 
                 self.setState(function (prevState) {
                     return {
-                        tasks: data
-                        //.map((task) => <TaskItem key={task._id} data={task} /*onDelete={() => self.deleteTask(task._id)}*/ />)
+                        tasks: data.map(function (task) {
+                            return React.createElement(TaskItem, { key: task._id, data: task });
+                        })
                     };
                 });
             });
         }
     }, {
-        key: 'deleteTask',
-        value: function deleteTask(id) {
-            $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE' });
-            this.load();
-        }
-    }, {
         key: 'render',
         value: function render() {
-            if (this.state.tasks === null) return null;
-            var cntrls = this.state.tasks.map(function (task) {
-                return React.createElement(TaskItem, { key: task._id, data: task /*onDelete={() => self.deleteTask(task._id)}*/ });
-            });
             return React.createElement(
                 'ul',
                 null,
-                cntrls
+                this.state.tasks
             );
         }
     }]);
@@ -78,8 +70,6 @@ var TaskItem = (function (_React$Component2) {
 
         // This binding is necessary to make `this` work in the callback
         this.toggleStatus = this.toggleStatus.bind(this);
-
-        this.deleteClick = this.deleteClick.bind(this);
     }
 
     _createClass(TaskItem, [{
@@ -89,24 +79,12 @@ var TaskItem = (function (_React$Component2) {
                 return {
                     status: !prevState.status
                 };
-            }, this.save);
+            }, this.update);
         }
     }, {
-        key: 'deleteClick',
-        value: function deleteClick() {
-            console.log('Deleteing task: ' + this.state._id);
-            this['delete']();
-            // TODO: update tasks list
-        }
-    }, {
-        key: 'save',
-        value: function save() {
+        key: 'update',
+        value: function update() {
             $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state });
-        }
-    }, {
-        key: 'delete',
-        value: function _delete() {
-            $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE', data: this.state });
         }
     }, {
         key: 'render',
@@ -119,12 +97,7 @@ var TaskItem = (function (_React$Component2) {
                     null,
                     this.state.name
                 ),
-                React.createElement('input', { type: 'checkbox', onChange: this.toggleStatus, checked: this.state.status ? 'checked' : '' }),
-                React.createElement(
-                    'button',
-                    { onClick: this.deleteClick },
-                    'Delete'
-                )
+                React.createElement('input', { type: 'checkbox', onChange: this.toggleStatus, checked: this.state.status ? 'checked' : '' })
             );
         }
     }]);
