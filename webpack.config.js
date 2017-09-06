@@ -20,7 +20,6 @@ module.exports = {
                 {
                     presets: ['react']
                 }
-                //query: { presets: ['es2015', 'react'] }
             }
         ]
     }
