@@ -5,17 +5,31 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6bbc78e7-9412-4ff4-9eae-df046202f6e4}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>server.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodejsPort>3000</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="app.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Scripts\home.js">
+      <SubType>Code</SubType>
+      <DependentUpon>Scripts\home.jsx</DependentUpon>
+    </Compile>
+    <Compile Include="Scripts\home.min.js">
+      <SubType>Code</SubType>
+      <DependentUpon>Scripts\home.js</DependentUpon>
+    </Compile>
+    <Compile Include="webpack.config.js" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <SubType>Content</SubType>
@@ -23,12 +37,7 @@
     </Content>
     <Content Include="index.html" />
     <Content Include="package.json" />
-    <Compile Include="Scripts\home.js" />
-    <Compile Include="Scripts\home.js.bak2">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="server.js" />
-    <Compile Include="Scripts\home.js.bak" />
     <Compile Include="api\controllers\todoListController.js" />
     <Compile Include="api\models\todoListModel.js" />
     <Compile Include="api\routes\todoListRoutes.js" />

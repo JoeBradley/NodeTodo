@@ -1,4 +1,4 @@
-/* Home */
+/* Home Controller */
 class Tasks extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +18,6 @@ class Tasks extends React.Component {
 
             self.setState(prevState => ({
                 tasks: data
-                    //.map((task) => <TaskItem key={task._id} data={task} /*onDelete={() => self.deleteTask(task._id)}*/ />)
             }));
         });
     }
@@ -30,7 +29,7 @@ class Tasks extends React.Component {
 
     render() {
         if (this.state.tasks === null) return  null;
-        var cntrls = this.state.tasks.map((task) => <TaskItem key={task._id} data={task} onDelete={() => self.deleteTask(task._id)} />)
+        const cntrls = this.state.tasks.map(task => <TaskItem key={task._id} data={task} onDelete={() => self.deleteTask(task._id)} />)
         return (
             <ul>{cntrls}</ul>
         );
@@ -82,4 +81,6 @@ class TaskItem extends React.Component {
     }
 }
 
-ReactDOM.render(<Tasks/>, document.getElementById('root'));
+export default function loadTasks() {
+    ReactDOM.render(<Tasks />, document.getElementById('root'));
+}
