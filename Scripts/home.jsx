@@ -23,15 +23,17 @@ class Tasks extends React.Component {
     }
 
     deleteTask(id) {
-        $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE' }); 
+        $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE' });
         this.load();
     }
 
     render() {
-        if (this.state.tasks === null) return  null;
+        if (this.state.tasks === null) return null;
         const cntrls = this.state.tasks.map(task => <TaskItem key={task._id} data={task} onDelete={() => self.deleteTask(task._id)} />)
         return (
-            <ul>{cntrls}</ul>
+            <form class="form-horizontal">
+                {cntrls}
+            </form>
         );
     }
 }
@@ -52,7 +54,7 @@ class TaskItem extends React.Component {
 
     toggleStatus() {
         this.setState(prevState => ({
-            status: !prevState.status            
+            status: !prevState.status
         }), this.save);
     }
 
@@ -63,24 +65,27 @@ class TaskItem extends React.Component {
     }
 
     save() {
-        $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state }); 
+        $.ajax({ url: '/tasks/' + this.state._id, method: 'PUT', data: this.state });
     }
 
     delete() {
-        $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE', data: this.state }); 
+        $.ajax({ url: '/tasks/' + this.state._id, method: 'DELETE', data: this.state });
     }
 
     render() {
         return (
-            <li>
-                <label>{this.state.name}</label>
-                <input type="checkbox" onChange={this.toggleStatus} checked={this.state.status ? 'checked' : ''} />
-                <button onClick={this.deleteClick}>Delete</button>
-            </li>
+            <div class="checkbox-inline">
+                <label>{this.state.name}
+                    <input type="checkbox" className="form-control" onChange={this.toggleStatus} checked={this.state.status ? 'checked' : ''} />
+                </label>
+                <button className="btn btn-default" onClick={this.deleteClick}>Delete</button>
+            </div>
         );
     }
 }
 
-export default function loadTasks() {
-    ReactDOM.render(<Tasks />, document.getElementById('root'));
-}
+ReactDOM.render(<Tasks />, document.getElementById('root'));
+
+//export default function loadTasks() {
+//    ReactDOM.render(<Tasks />, document.getElementById('root'));
+//}
