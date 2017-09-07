@@ -17,19 +17,31 @@ var Tasks = (function (_React$Component) {
 
         _get(Object.getPrototypeOf(Tasks.prototype), 'constructor', this).call(this, props);
         this.state = {
-            tasks: null
+            tasks: null,
+            xhr: null
         };
-
-        this.load();
     }
 
     _createClass(Tasks, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.load();
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            if (this.xhr !== null) {
+                this.xhr.abort();
+                this.xhr = null;
+            }
+        }
+    }, {
         key: 'load',
         value: function load() {
             console.log('Load tasks');
 
             var self = this;
-            $.get('/tasks', function (data) {
+            this.xhr = $.get('/tasks', function (data) {
                 console.log(data);
 
                 self.setState(function (prevState) {
@@ -114,12 +126,12 @@ var TaskItem = (function (_React$Component2) {
         value: function render() {
             return React.createElement(
                 'div',
-                { 'class': 'checkbox-inline' },
+                { 'class': 'checkbox' },
                 React.createElement(
                     'label',
                     null,
-                    this.state.name,
-                    React.createElement('input', { type: 'checkbox', className: 'form-control', onChange: this.toggleStatus, checked: this.state.status ? 'checked' : '' })
+                    React.createElement('input', { type: 'checkbox', className: 'form-control', onChange: this.toggleStatus, checked: this.state.status ? 'checked' : '' }),
+                    this.state.name
                 ),
                 React.createElement(
                     'button',

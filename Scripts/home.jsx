@@ -18,8 +18,7 @@ class Tasks extends React.Component {
             this.xhr = null;
         }
     }
-
-
+    
     load() {
         console.log('Load tasks');
 
@@ -85,9 +84,10 @@ class TaskItem extends React.Component {
 
     render() {
         return (
-            <div class="checkbox-inline">
-                <label>{this.state.name}
+            <div class="checkbox">
+                <label>
                     <input type="checkbox" className="form-control" onChange={this.toggleStatus} checked={this.state.status ? 'checked' : ''} />
+                    {this.state.name}
                 </label>
                 <button className="btn btn-default" onClick={this.deleteClick}>Delete</button>
             </div>

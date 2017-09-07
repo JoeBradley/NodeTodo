@@ -22,6 +22,7 @@
     "dexie-observable": "^1.0.0-beta.4",
     "dexie-syncable": "^1.0.0-beta.4",
     "express": "^4.15.4",
+    "lodash": "^4.17.4",
     "mongoose": "^4.11.7",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
