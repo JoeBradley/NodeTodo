@@ -18,6 +18,9 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "body-parser": "^1.17.2",
+    "dexie": "^1.5.1",
+    "dexie-observable": "^1.0.0-beta.4",
+    "dexie-syncable": "^1.0.0-beta.4",
     "express": "^4.15.4",
     "mongoose": "^4.11.7",
     "webpack": "^3.5.5",

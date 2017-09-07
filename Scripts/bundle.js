@@ -85,17 +85,27 @@ class Tasks extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: null
+            tasks: null,
+            xhr: null
         };
+    }
 
+    componentDidMount() {
         this.load();
+    }
+
+    componentWillUnmount() {
+        if (this.xhr !== null) {
+            this.xhr.abort();
+            this.xhr = null;
+        }
     }
 
     load() {
         console.log('Load tasks');
 
         var self = this;
-        $.get('/tasks', function (data) {
+        this.xhr = $.get('/tasks', function (data) {
             console.log(data);
 
             self.setState(prevState => ({
